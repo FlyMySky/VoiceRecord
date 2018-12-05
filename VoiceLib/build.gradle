@@ -1,0 +1,55 @@
+if (Boolean.valueOf(isPlugin)){
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion Androids.compileSdkVersion
+    defaultConfig {
+        if (!Boolean.valueOf(isPlugin)){
+            applicationId Androids.applicationIdVoice
+        }
+        minSdkVersion Androids.minSdkVersion
+        targetSdkVersion Androids.targetSdkVersion
+        versionCode Androids.versionCode
+        versionName Androids.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+            if (Boolean.valueOf(isPlugin)){
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/single/AndroidManifest.xml'
+            }
+        }
+    }
+
+    greendao {
+        schemaVersion 1  //版本
+        daoPackage 'com.skwen.voicerecord.voicelib.dao' // 一般为app包名+生成文件的文件夹名,例com.example.greendao.dao
+        targetGenDir 'src/main/java' //生成文件路径
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation Deps.tests.junit
+    androidTestImplementation Deps.tests.runner
+    androidTestImplementation Deps.tests.espresso
+
+    implementation project(':BaseLib')
+}

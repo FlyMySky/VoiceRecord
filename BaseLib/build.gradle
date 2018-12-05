@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion Androids.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Androids.minSdkVersion
+        targetSdkVersion Androids.targetSdkVersion
+        versionCode Androids.versionCode
+        versionName Androids.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation Deps.tests.junit
+    androidTestImplementation Deps.tests.runner
+    androidTestImplementation Deps.tests.espresso
+
+    api Deps.supports.kotlinSupport
+    api Deps.supports.appcompatV7
+    api Deps.supports.constraintLayout
+    api Deps.supports.design
+    api Deps.supports.cardview
+    api Deps.thirds.recyclerviewSwipe
+    api Deps.thirds.statusBarUtil
+
+    api Deps.thirds.greenDao
+    //room
+//    api Deps.thirds.roomRuntime
+//    // use kapt for Kotlin
+//    kapt Deps.thirds.roomCompiler
+//    // optional - RxJava support for Room
+//    api Deps.thirds.roomRxjava2
+}
