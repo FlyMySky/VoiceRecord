@@ -21,8 +21,9 @@ class VoiceAdapter(private var layoutManager: LinearLayoutManager) : RecyclerVie
     }
 
     override fun onInsertData() {
-        notifyItemInserted(itemCount - 1)
-        layoutManager.scrollToPosition(itemCount - 1)
+        notifyDataSetChanged()
+//        notifyItemInserted(itemCount - 1)
+//        layoutManager.scrollToPosition(itemCount - 1)
     }
 
     override fun onEditData() {

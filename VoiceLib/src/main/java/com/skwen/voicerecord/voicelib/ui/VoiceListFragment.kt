@@ -39,20 +39,31 @@ class VoiceListFragment : LazyFragment() {
         voiceListView.adapter = mAdapter
         mAdapter.addOnItemClickListenter(object : VoiceItemClickListener {
             override fun onItemClick(voice: Voice) {
-                val fragment = PlayVoiceFragment.instance(voice)
-                fragment.show(childFragmentManager, PlayVoiceFragment.TAG)
+                if (isStartRecord) {
+                    val fragment = PlayVoiceFragment.instance(voice)
+                    fragment.show(childFragmentManager, PlayVoiceFragment.TAG)
+                } else {
+                    ToastUtils.showToast(context!!, "录音中不能播放...")
+                }
             }
         })
         mAdapter.addOnItemLongClickListenter(object : VoiceItemLongClickListener {
             override fun onItemLongClick(voice: Voice) {
-                val fragment = EditVoiceFragment.instance(voice)
-                fragment.show(childFragmentManager, EditVoiceFragment.TAG)
+                if (isStartRecord) {
+                    val fragment = EditVoiceFragment.instance(voice)
+                    fragment.show(childFragmentManager, EditVoiceFragment.TAG)
+                }
             }
         })
+        voiceTime?.base = SystemClock.elapsedRealtime()
         startRecord.setOnClickListener {
             run {
-                startRecordVoice(isStartRecord)
-                isStartRecord = !isStartRecord
+                if (isHasPermission) {
+                    startRecordVoice(isStartRecord)
+                    isStartRecord = !isStartRecord
+                } else {
+                    ToastUtils.showToast(context!!, "请授予录音权限")
+                }
             }
         }
     }
@@ -94,7 +105,7 @@ class VoiceListFragment : LazyFragment() {
 
     override fun onLazyLoad() {
         if (isHasPermission) {
-            ToastUtils.showToast(context!!, "获取权限成功")
+
         } else {
             requestUsePermissions()
         }

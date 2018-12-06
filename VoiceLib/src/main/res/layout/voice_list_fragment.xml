@@ -32,15 +32,10 @@
                     app:layout_collapseMode="pin"
                     app:layout_collapseParallaxMultiplier="0.7">
 
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:padding="20dp">
-
                     <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="100dp"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:orientation="vertical">
@@ -48,74 +43,11 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="黄晓果"
+                                android:text="skwen"
                                 android:textColor="#ffffff"
                                 android:textSize="16sp"
                                 android:textStyle="bold"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
-                                android:lineSpacingMultiplier="1.3"
-                                android:text="我很喜欢你，像你妈打你，没有道理;\n像放出的屁，身不由己。"
-                                android:textColor="#ffffff"
-                                android:textSize="13sp"
-                                android:textStyle="bold"/>
                     </LinearLayout>
-
-                    <ImageView
-                            android:id="@+id/headImg"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:scaleType="centerCrop"/>
-                </RelativeLayout>
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="40dp"
-                        android:ellipsize="end"
-                        android:lineSpacingMultiplier="1.3"
-                        android:maxLines="2"
-                        android:text="萌逼的脸是来亲的，帅逼的脸是用来看的，逗逼的脸是用来笑的，傻逼的脸是用来哭的，偏偏就你的脸是用来踢的。"
-                        android:textColor="#ffffff"
-                        android:textSize="12sp"/>
-
-                <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:padding="20dp">
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="40dp"
-                            android:ellipsize="end"
-                            android:lineSpacingMultiplier="1.3"
-                            android:maxLines="2"
-                            android:text="今天的你对我爱搭不理，\n明天的我还来找你。"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp"/>
-
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:paddingBottom="3dp"
-                            android:paddingLeft="6dp"
-                            android:paddingRight="6dp"
-                            android:paddingTop="3dp"
-                            android:text="设置"
-                            android:textColor="#ffffff"
-                            android:textSize="12sp"/>
-                </RelativeLayout>
             </LinearLayout>
             <!--Toolbar放在下面不然会被挡住-->
             <android.support.v7.widget.Toolbar
@@ -130,45 +62,49 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
-            android:id="@+id/nsv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <!--<android.support.v4.widget.NestedScrollView-->
+            <!--android:id="@+id/nsv"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:fillViewport="true"-->
+            <!--android:scrollbars="none"-->
+            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
             <android.support.v7.widget.CardView
                     android:id="@+id/voiceLayout"
+                    android:layout_margin="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <LinearLayout
                         android:layout_alignParentTop="true"
                         android:gravity="center_vertical"
-                        android:padding="10dp"
+                        android:padding="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <android.support.design.widget.FloatingActionButton
                             android:id="@+id/startRecord"
                             android:src="@mipmap/ic_mic_white_36dp"
                             app:elevation="2dp"
+                            app:fabSize="mini"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="wrap_content"/>
                     <TextView
                             android:id="@+id/voiceState"
                             android:gravity="center"
                             android:layout_weight="1"
-                            android:layout_width="wrap_content"
+                            android:text="点击录音"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"/>
                     <Chronometer
                             android:id="@+id/voiceTime"
                             android:gravity="center"
                             android:layout_weight="1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"/>
 
                 </LinearLayout>
@@ -181,7 +117,7 @@
                     android:layout_below="@id/voiceLayout"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+    <!--</android.support.v4.widget.NestedScrollView>-->
     <!--在CoordinatorLayout中只要是能滑动控件的都需要设置layout_behavior-->
     <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 

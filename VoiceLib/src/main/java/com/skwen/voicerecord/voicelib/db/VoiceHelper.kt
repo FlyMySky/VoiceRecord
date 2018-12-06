@@ -48,7 +48,8 @@ class VoiceHelper {
     }
 
     fun queryAll(): MutableList<Voice>? {
-        return DbManager.getDaoSession(BaseApp.context!!)?.voiceDao?.loadAll()
+        return DbManager.getDaoSession(BaseApp.context!!)?.voiceDao?.queryBuilder()?.orderDesc(VoiceDao.Properties.Id)
+            ?.list()
     }
 
     fun updateData(entity: Voice) {
