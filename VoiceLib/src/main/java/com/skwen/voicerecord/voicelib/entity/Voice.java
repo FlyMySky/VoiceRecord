@@ -16,12 +16,16 @@ public class Voice {
 
     private String voicePath;
 
-    @Generated(hash = 1251525778)
-    public Voice(Long id, String voiceName, String voiceTime, String voicePath) {
+    private String recordTime;
+
+    @Generated(hash = 1351532010)
+    public Voice(Long id, String voiceName, String voiceTime, String voicePath,
+            String recordTime) {
         this.id = id;
         this.voiceName = voiceName;
         this.voiceTime = voiceTime;
         this.voicePath = voicePath;
+        this.recordTime = recordTime;
     }
 
     @Generated(hash = 1158611544)
@@ -58,6 +62,14 @@ public class Voice {
 
     public void setVoicePath(String voicePath) {
         this.voicePath = voicePath;
+    }
+
+    public String getRecordTime() {
+        return this.recordTime;
+    }
+
+    public void setRecordTime(String recordTime) {
+        this.recordTime = recordTime;
     }
 
 }

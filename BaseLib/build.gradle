@@ -37,6 +37,8 @@ dependencies {
     api Deps.thirds.statusBarUtil
 
     api Deps.thirds.greenDao
+    api Deps.thirds.rxJava2
+    api Deps.thirds.rxAndroid2
     //room
 //    api Deps.thirds.roomRuntime
 //    // use kapt for Kotlin

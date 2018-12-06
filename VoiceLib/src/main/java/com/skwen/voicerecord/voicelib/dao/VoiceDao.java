@@ -28,6 +28,7 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
         public final static Property VoiceName = new Property(1, String.class, "voiceName", false, "VOICE_NAME");
         public final static Property VoiceTime = new Property(2, String.class, "voiceTime", false, "VOICE_TIME");
         public final static Property VoicePath = new Property(3, String.class, "voicePath", false, "VOICE_PATH");
+        public final static Property RecordTime = new Property(4, String.class, "recordTime", false, "RECORD_TIME");
     }
 
 
@@ -46,7 +47,8 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"VOICE_NAME\" TEXT," + // 1: voiceName
                 "\"VOICE_TIME\" TEXT," + // 2: voiceTime
-                "\"VOICE_PATH\" TEXT);"); // 3: voicePath
+                "\"VOICE_PATH\" TEXT," + // 3: voicePath
+                "\"RECORD_TIME\" TEXT);"); // 4: recordTime
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
         if (voicePath != null) {
             stmt.bindString(4, voicePath);
         }
+ 
+        String recordTime = entity.getRecordTime();
+        if (recordTime != null) {
+            stmt.bindString(5, recordTime);
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
         if (voicePath != null) {
             stmt.bindString(4, voicePath);
         }
+ 
+        String recordTime = entity.getRecordTime();
+        if (recordTime != null) {
+            stmt.bindString(5, recordTime);
+        }
     }
 
     @Override
@@ -116,7 +128,8 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // voiceName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // voiceTime
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // voicePath
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // voicePath
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // recordTime
         );
         return entity;
     }
@@ -127,6 +140,7 @@ public class VoiceDao extends AbstractDao<Voice, Long> {
         entity.setVoiceName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setVoiceTime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setVoicePath(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setRecordTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

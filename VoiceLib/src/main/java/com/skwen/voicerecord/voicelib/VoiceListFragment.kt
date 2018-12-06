@@ -4,9 +4,11 @@ import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
+import android.support.v7.widget.LinearLayoutManager
 import android.view.WindowManager
 import com.skwen.voicerecord.baselib.tools.ToastUtils
 import com.skwen.voicerecord.baselib.ui.LazyFragment
+import com.skwen.voicerecord.voicelib.adapter.VoiceAdapter
 import com.skwen.voicerecord.voicelib.service.RecordService
 import kotlinx.android.synthetic.main.voice_list_fragment.*
 
@@ -17,12 +19,20 @@ class VoiceListFragment : LazyFragment() {
 
     private var mRecordPromptCount = 0
 
+//    private var mList: MutableList<Voice>? = null
+
+    private var mAdapter: VoiceAdapter? = null
+
     override fun getLayoutRes(): Int {
         return R.layout.voice_list_fragment
     }
 
     override fun initViews() {
-
+//        mList = mutableListOf()
+        val layoutManager = LinearLayoutManager(context)
+        voiceListView.layoutManager = layoutManager
+        mAdapter = VoiceAdapter(layoutManager)
+        voiceListView.adapter = mAdapter
         startRecord.setOnClickListener {
             run {
                 startRecordVoice(isStartRecord)
@@ -61,6 +71,7 @@ class VoiceListFragment : LazyFragment() {
             voiceState?.text = "点击录音"
             startRecord?.setImageResource(R.mipmap.ic_mic_white_36dp)
             mRecordPromptCount = 0
+            onLazyLoad()
         }
 
     }

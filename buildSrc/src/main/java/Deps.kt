@@ -23,6 +23,8 @@ private object Versions {
     const val statusbarVersion = "1.4.0"
     const val roomVersion = "1.1.1"
     const val greenDaoVersion = "3.2.2"
+    const val rxJavaVersion = "2.2.4"
+    const val rxAndroidVersion = "2.1.0"
 }
 
 
@@ -69,4 +71,9 @@ object Thirds {
      * greenDao
      */
     const val greenDao = "org.greenrobot:greendao:${Versions.greenDaoVersion}"
+    /**
+     * rxjava
+     */
+    const val rxJava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxJavaVersion}"
+    const val rxAndroid2 = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
 }

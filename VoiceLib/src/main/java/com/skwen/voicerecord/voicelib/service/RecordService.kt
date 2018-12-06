@@ -6,7 +6,9 @@ import android.media.MediaRecorder
 import android.os.Environment
 import android.os.IBinder
 import com.skwen.voicerecord.baselib.tools.L
-
+import com.skwen.voicerecord.baselib.tools.TimeUtils
+import com.skwen.voicerecord.voicelib.db.VoiceHelper
+import com.skwen.voicerecord.voicelib.entity.Voice
 import java.io.File
 import java.io.IOException
 
@@ -115,6 +117,16 @@ open class RecordService : Service() {
         //置空参数
         mRecorder = null
         L.d("停止录音。。。")
+        saveToDb()
+    }
+
+    private fun saveToDb() {
+        val voice = Voice()
+        voice.recordTime = TimeUtils.getCurrentTime()
+        voice.voiceTime = TimeUtils.getRecordTimeByMill(voiceTime)
+        voice.voiceName = voiceName
+        voice.voicePath = voicePath
+        VoiceHelper.instance.insertData(voice)
     }
 
 }
