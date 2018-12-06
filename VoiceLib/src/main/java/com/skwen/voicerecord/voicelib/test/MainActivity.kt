@@ -3,7 +3,7 @@ package com.skwen.voicerecord.voicelib.test
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.skwen.voicerecord.voicelib.R
-import com.skwen.voicerecord.voicelib.VoiceListFragment
+import com.skwen.voicerecord.voicelib.ui.VoiceListFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -3,10 +3,10 @@ package com.skwen.voicerecord.voicelib.service
 import android.app.Service
 import android.content.Intent
 import android.media.MediaRecorder
-import android.os.Environment
 import android.os.IBinder
 import com.skwen.voicerecord.baselib.tools.L
 import com.skwen.voicerecord.baselib.tools.TimeUtils
+import com.skwen.voicerecord.voicelib.db.Const
 import com.skwen.voicerecord.voicelib.db.VoiceHelper
 import com.skwen.voicerecord.voicelib.entity.Voice
 import java.io.File
@@ -90,7 +90,7 @@ open class RecordService : Service() {
     private fun createVoiceNameAndPath() {
         var voiceFile: File
         var count = 0
-        val folder = File(Environment.getExternalStorageDirectory().toString() + "/myPrivateRecord")
+        val folder = File(Const.voicePath)
         if (!folder.exists()) {
             //folder /SoundRecorder doesn't exist, create the folder
             folder.mkdir()
@@ -98,7 +98,7 @@ open class RecordService : Service() {
         do {
             count++
             voiceName = "我的录音_$count.mp4"
-            voicePath = Environment.getExternalStorageDirectory().toString() + "/myPrivateRecord/" + voiceName!!
+            voicePath = Const.voiceDictionaryPath + voiceName!!
             voiceFile = File(voicePath!!)
         } while (voiceFile.exists() && !voiceFile.isDirectory)
         L.d("创建路劲。。。")

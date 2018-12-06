@@ -12,6 +12,10 @@ import com.skwen.voicerecord.voicelib.holder.VoiceHolder
 class VoiceAdapter(private var layoutManager: LinearLayoutManager) : RecyclerView.Adapter<VoiceHolder>(),
     VoiceDataCallBack {
 
+    private lateinit var onItemClickListener: VoiceItemClickListener
+
+    private lateinit var onItemLongClickListener: VoiceItemLongClickListener
+
     init {
         VoiceHelper.instance.registerCallBack(this)
     }
@@ -22,7 +26,7 @@ class VoiceAdapter(private var layoutManager: LinearLayoutManager) : RecyclerVie
     }
 
     override fun onEditData() {
-
+        notifyDataSetChanged()
     }
 
 
@@ -35,7 +39,23 @@ class VoiceAdapter(private var layoutManager: LinearLayoutManager) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: VoiceHolder, position: Int) {
-        holder.bindData(VoiceHelper.instance.queryAll()!![position])
+        val voice = VoiceHelper.instance.queryAll()!![position]
+        holder.bindData(voice)
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onItemClick(voice)
+        }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClickListener.onItemLongClick(voice)
+            true
+        }
     }
 
+    fun addOnItemClickListenter(onItemClickListener: VoiceItemClickListener) {
+        this.onItemClickListener = onItemClickListener
+    }
+
+    fun addOnItemLongClickListenter(onItemLongClickListener: VoiceItemLongClickListener) {
+        this.onItemLongClickListener = onItemLongClickListener
+
+    }
 }

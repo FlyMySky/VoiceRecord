@@ -1,11 +1,14 @@
 package com.skwen.voicerecord.voicelib.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
 
 @Entity
-public class Voice {
+public class Voice implements Parcelable {
 
     @Id(autoincrement = true)
     private Long id;
@@ -72,4 +75,38 @@ public class Voice {
         this.recordTime = recordTime;
     }
 
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeValue(this.id);
+        dest.writeString(this.voiceName);
+        dest.writeString(this.voiceTime);
+        dest.writeString(this.voicePath);
+        dest.writeString(this.recordTime);
+    }
+
+    protected Voice(Parcel in) {
+        this.id = (Long) in.readValue(Long.class.getClassLoader());
+        this.voiceName = in.readString();
+        this.voiceTime = in.readString();
+        this.voicePath = in.readString();
+        this.recordTime = in.readString();
+    }
+
+    public static final Parcelable.Creator<Voice> CREATOR = new Parcelable.Creator<Voice>() {
+        @Override
+        public Voice createFromParcel(Parcel source) {
+            return new Voice(source);
+        }
+
+        @Override
+        public Voice[] newArray(int size) {
+            return new Voice[size];
+        }
+    };
 }

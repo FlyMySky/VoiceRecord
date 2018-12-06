@@ -1,4 +1,4 @@
-package com.skwen.voicerecord.voicelib
+package com.skwen.voicerecord.voicelib.ui
 
 import android.Manifest
 import android.content.Intent
@@ -8,7 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.WindowManager
 import com.skwen.voicerecord.baselib.tools.ToastUtils
 import com.skwen.voicerecord.baselib.ui.LazyFragment
+import com.skwen.voicerecord.voicelib.R
 import com.skwen.voicerecord.voicelib.adapter.VoiceAdapter
+import com.skwen.voicerecord.voicelib.adapter.VoiceItemClickListener
+import com.skwen.voicerecord.voicelib.adapter.VoiceItemLongClickListener
+import com.skwen.voicerecord.voicelib.entity.Voice
 import com.skwen.voicerecord.voicelib.service.RecordService
 import kotlinx.android.synthetic.main.voice_list_fragment.*
 
@@ -21,7 +25,7 @@ class VoiceListFragment : LazyFragment() {
 
 //    private var mList: MutableList<Voice>? = null
 
-    private var mAdapter: VoiceAdapter? = null
+    private lateinit var mAdapter: VoiceAdapter
 
     override fun getLayoutRes(): Int {
         return R.layout.voice_list_fragment
@@ -33,6 +37,18 @@ class VoiceListFragment : LazyFragment() {
         voiceListView.layoutManager = layoutManager
         mAdapter = VoiceAdapter(layoutManager)
         voiceListView.adapter = mAdapter
+        mAdapter.addOnItemClickListenter(object : VoiceItemClickListener {
+            override fun onItemClick(voice: Voice) {
+                val fragment = PlayVoiceFragment.instance(voice)
+                fragment.show(childFragmentManager, PlayVoiceFragment.TAG)
+            }
+        })
+        mAdapter.addOnItemLongClickListenter(object : VoiceItemLongClickListener {
+            override fun onItemLongClick(voice: Voice) {
+                val fragment = EditVoiceFragment.instance(voice)
+                fragment.show(childFragmentManager, EditVoiceFragment.TAG)
+            }
+        })
         startRecord.setOnClickListener {
             run {
                 startRecordVoice(isStartRecord)
