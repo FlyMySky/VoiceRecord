@@ -5,15 +5,21 @@ import android.content.Intent
 import android.os.Build
 import android.os.SystemClock
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import com.skwen.voicerecord.baselib.tools.FileUtils
 import com.skwen.voicerecord.baselib.tools.ToastUtils
 import com.skwen.voicerecord.baselib.ui.LazyFragment
 import com.skwen.voicerecord.voicelib.R
 import com.skwen.voicerecord.voicelib.adapter.VoiceAdapter
 import com.skwen.voicerecord.voicelib.adapter.VoiceItemClickListener
 import com.skwen.voicerecord.voicelib.adapter.VoiceItemLongClickListener
+import com.skwen.voicerecord.voicelib.db.VoiceHelper
 import com.skwen.voicerecord.voicelib.entity.Voice
 import com.skwen.voicerecord.voicelib.service.RecordService
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuCreator
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuItem
 import kotlinx.android.synthetic.main.voice_list_fragment.*
 
 class VoiceListFragment : LazyFragment() {
@@ -23,18 +29,30 @@ class VoiceListFragment : LazyFragment() {
 
     private var mRecordPromptCount = 0
 
-//    private var mList: MutableList<Voice>? = null
-
     private lateinit var mAdapter: VoiceAdapter
+
+    private var isSelected = false
 
     override fun getLayoutRes(): Int {
         return R.layout.voice_list_fragment
     }
 
     override fun initViews() {
-//        mList = mutableListOf()
+
+
         val layoutManager = LinearLayoutManager(context)
         voiceListView.layoutManager = layoutManager
+        voiceListView.setSwipeMenuCreator(swipeMenuCreator)
+        voiceListView.setSwipeMenuItemClickListener { menuBridge, position ->
+            run {
+                // 任何操作必须先关闭菜单，否则可能出现Item菜单打开状态错乱。
+                menuBridge.closeMenu()
+                val item = mAdapter.getItem(position)
+                VoiceHelper.instance.deleteData(item)
+                FileUtils.delete(item.voicePath)
+                mAdapter.notifyDataSetChanged()
+            }
+        }
         mAdapter = VoiceAdapter(layoutManager)
         voiceListView.adapter = mAdapter
         mAdapter.addOnItemClickListenter(object : VoiceItemClickListener {
@@ -65,6 +83,43 @@ class VoiceListFragment : LazyFragment() {
                     ToastUtils.showToast(context!!, "请授予录音权限")
                 }
             }
+        }
+        toolBarBack.setOnClickListener {
+            run {
+                activity!!.finish()
+            }
+        }
+
+        toolBarMenu.setOnClickListener {
+            setActionLayout()
+        }
+
+        cancelAction.setOnClickListener {
+            setActionLayout()
+        }
+
+        conformAction.setOnClickListener {
+            val selectList = mAdapter.getSelectList()
+            if (selectList.size == 0) {
+                ToastUtils.showToast(context!!, "请选择")
+                return@setOnClickListener
+            } else {
+                for (item in selectList) {
+                    VoiceHelper.instance.deleteData(item)
+                    FileUtils.delete(item.voicePath)
+                }
+            }
+            setActionLayout()
+        }
+    }
+
+    private fun setActionLayout() {
+        isSelected = !isSelected
+        mAdapter.setChecked(isSelected)
+        if (isSelected) {
+            actionLayout.visibility = View.VISIBLE
+        } else {
+            actionLayout.visibility = View.GONE
         }
     }
 
@@ -138,5 +193,18 @@ class VoiceListFragment : LazyFragment() {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
+
+    private val swipeMenuCreator = SwipeMenuCreator { swipeLeftMenu, swipeRightMenu, position ->
+        val deleteItem = SwipeMenuItem(context)
+            .setImage(R.mipmap.voice_list_item_delete_icon) // 图标。
+            .setText("删除") // 文字。
+            .setTextSize(10) // 文字大小。
+            .setWidth(160)
+            .setHeight(ViewGroup.LayoutParams.MATCH_PARENT)
+        swipeRightMenu.addMenuItem(deleteItem)// 添加一个按钮到右侧侧菜单。.
+
+        // 上面的菜单哪边不要菜单就不要添加。
+    }
+
 
 }

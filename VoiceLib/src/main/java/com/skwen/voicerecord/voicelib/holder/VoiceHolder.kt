@@ -10,6 +10,7 @@ class VoiceHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var itemName = itemView.itemName
     var itemTime = itemView.itemTime
     var itemRecordTime = itemView.itemRecordTime
+    var itemChecked = itemView.itemChecked
 
     fun bindData(item: Voice) {
         itemName.text = item.voiceName
