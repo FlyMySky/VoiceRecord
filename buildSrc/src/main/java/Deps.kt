@@ -4,6 +4,7 @@ object Androids {
     const val targetSdkVersion = 28
     const val applicationId = "com.skwen.voicerecord"
     const val applicationIdVoice = "com.skwen.voicerecord.voicelib"
+    const val applicationIdVideo = "com.skwen.voicerecord.videolib"
     const val versionCode = 1
     const val versionName = "1.0"
 }
