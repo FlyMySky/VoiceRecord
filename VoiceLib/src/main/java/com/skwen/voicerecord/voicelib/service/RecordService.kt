@@ -4,7 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.media.MediaRecorder
 import android.os.IBinder
-import com.skwen.voicerecord.baselib.tools.L
+import com.blankj.utilcode.util.LogUtils
 import com.skwen.voicerecord.baselib.tools.TimeUtils
 import com.skwen.voicerecord.voicelib.db.Const
 import com.skwen.voicerecord.voicelib.db.VoiceHelper
@@ -44,7 +44,7 @@ open class RecordService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        L.d("启动服务。。。")
+        LogUtils.d("启动服务。。。")
         startRecord()
         return Service.START_STICKY
     }
@@ -80,7 +80,7 @@ open class RecordService : Service() {
             mRecorder!!.start()
             //记录开始时间
             startTime = System.currentTimeMillis()
-            L.d("开始录音。。。")
+            LogUtils.d("开始录音。。。")
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -101,7 +101,7 @@ open class RecordService : Service() {
             voicePath = Const.voiceDictionaryPath + voiceName!!
             voiceFile = File(voicePath!!)
         } while (voiceFile.exists() && !voiceFile.isDirectory)
-        L.d("创建路劲。。。")
+        LogUtils.d("创建路劲。。。")
     }
 
 
@@ -116,7 +116,7 @@ open class RecordService : Service() {
 
         //置空参数
         mRecorder = null
-        L.d("停止录音。。。")
+        LogUtils.d("停止录音。。。")
         saveToDb()
     }
 

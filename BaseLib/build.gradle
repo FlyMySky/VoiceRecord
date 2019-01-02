@@ -39,6 +39,7 @@ dependencies {
     api Deps.thirds.greenDao
     api Deps.thirds.rxJava2
     api Deps.thirds.rxAndroid2
+    api Deps.thirds.commomUtils
     //room
 //    api Deps.thirds.roomRuntime
 //    // use kapt for Kotlin

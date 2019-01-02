@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.skwen.voicerecord.baselib.tools.ToastUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.skwen.voicerecord.voicelib.R
 import com.skwen.voicerecord.voicelib.db.Const
 import com.skwen.voicerecord.voicelib.db.VoiceHelper
@@ -46,7 +46,7 @@ class EditVoiceFragment : DialogFragment() {
         }
         conformBtn.setOnClickListener {
             if (TextUtils.isEmpty(inputName.text)) {
-                ToastUtils.showSnackbar(it, "请输入需要修改的名称")
+                ToastUtils.showShort("请输入需要修改的名称")
             } else {
                 updateVoice()
             }
@@ -59,7 +59,7 @@ class EditVoiceFragment : DialogFragment() {
         val path = Const.voiceDictionaryPath + name + ".mp4"
         val newFile = File(path)
         if (newFile.exists() && !newFile.isDirectory) {
-            ToastUtils.showToast(context!!, "文件名重复")
+            ToastUtils.showShort("文件名重复")
             return
         }
         val oldFile = File(voice.voicePath)

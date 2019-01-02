@@ -26,6 +26,7 @@ private object Versions {
     const val greenDaoVersion = "3.2.2"
     const val rxJavaVersion = "2.2.4"
     const val rxAndroidVersion = "2.1.0"
+    const val commonUtilsVersion = "1.22.3"
 }
 
 
@@ -59,6 +60,9 @@ object Supports {
 
 object Thirds {
     const val recyclerviewSwipe = "com.yanzhenjie:recyclerview-swipe:${Versions.recyclerviewSwipeVersion}"
+    /**
+     * statusBarUtil
+     */
     const val statusBarUtil = "com.jaeger.statusbarutil:library:${Versions.statusbarVersion}"//沉浸式状态栏
     /**
      * room
@@ -77,4 +81,8 @@ object Thirds {
      */
     const val rxJava2 = "io.reactivex.rxjava2:rxjava:${Versions.rxJavaVersion}"
     const val rxAndroid2 = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
+    /**
+     * commomUtils
+     */
+    const val commomUtils = "com.blankj:utilcode:${Versions.commonUtilsVersion}"
 }

@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.SeekBar
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.skwen.voicerecord.baselib.tools.TimeUtils
 import com.skwen.voicerecord.voicelib.R
 import com.skwen.voicerecord.voicelib.entity.Voice
@@ -105,6 +107,9 @@ class PlayVoiceFragment : DialogFragment() {
     }
 
     private fun startPlayer() {
+        if (!FileUtils.isFileExists(voice.voicePath)) {
+            return ToastUtils.showShort("文件不存在或被删除")
+        }
         filePlay.setImageResource(R.mipmap.ic_media_pause)
         mPlayer = MediaPlayer()
         mPlayer?.setDataSource(voice.voicePath)

@@ -1,116 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-            android:id="@+id/toolBar"
-            android:layout_alignParentTop="true"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-        <TextView
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/leftLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center">
+
+            <TextView
                 android:id="@+id/toolBarBack"
-                android:background="@mipmap/voice_tool_bar_back_icon"
-                android:layout_marginLeft="10dp"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@mipmap/voice_tool_bar_back_icon" />
+        </LinearLayout>
+
         <TextView
-                android:id="@+id/toolBarTitle"
-                android:text="录音"
-                android:gravity="center"
-                android:textSize="18dp"
-                android:textStyle="bold"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-        <ImageView
+            android:id="@+id/toolBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="录音"
+            android:textColor="#707070"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center">
+
+            <TextView
                 android:id="@+id/toolBarMenu"
-                android:src="@mipmap/voice_tool_bar_menu_icon"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="编辑"
+                android:textColor="#707070" />
+        </LinearLayout>
+
     </RelativeLayout>
 
+
     <android.support.v7.widget.CardView
-            android:id="@+id/actionLayout"
-            android:layout_margin="6dp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/toolBar"
-            app:layout_constraintBottom_toTopOf="@id/voiceListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:id="@+id/actionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/voiceListView"
+        app:layout_constraintTop_toBottomOf="@id/toolBar">
+
         <RelativeLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
             <Button
-                    android:id="@+id/cancelAction"
-                    android:text="取消"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/cancelAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消" />
+
             <Button
-                    android:id="@+id/conformAction"
-                    android:text="确定"
-                    android:layout_alignParentRight="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/conformAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="确定" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-            android:id="@+id/voiceLayout"
-            android:layout_margin="6dp"
-            android:layout_alignParentBottom="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:id="@+id/voiceLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="6dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
         <LinearLayout
-                android:layout_alignParentTop="true"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center_vertical"
+            android:padding="8dp">
+
             <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/startRecord"
-                    android:src="@mipmap/ic_mic_white_36dp"
-                    app:elevation="2dp"
-                    app:fabSize="mini"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                android:id="@+id/startRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_mic_white_36dp"
+                app:elevation="2dp"
+                app:fabSize="mini" />
+
             <TextView
-                    android:id="@+id/voiceState"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:text="点击录音"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                android:id="@+id/voiceState"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="点击录音" />
+
             <Chronometer
-                    android:id="@+id/voiceTime"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
+                android:id="@+id/voiceTime"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-            android:id="@+id/voiceListView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/actionLayout"
-            app:layout_constraintBottom_toTopOf="@id/voiceLayout"
-            />
+        android:id="@+id/voiceListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/voiceLayout"
+        app:layout_constraintTop_toBottomOf="@id/actionLayout" />
 </android.support.constraint.ConstraintLayout>

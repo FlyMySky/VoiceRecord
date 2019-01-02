@@ -8,8 +8,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.skwen.voicerecord.baselib.tools.FileUtils
-import com.skwen.voicerecord.baselib.tools.ToastUtils
+import com.blankj.utilcode.util.FileUtils
+import com.blankj.utilcode.util.ToastUtils
+import com.jaeger.library.StatusBarUtil
 import com.skwen.voicerecord.baselib.ui.LazyFragment
 import com.skwen.voicerecord.voicelib.R
 import com.skwen.voicerecord.voicelib.adapter.VoiceAdapter
@@ -39,6 +40,7 @@ class VoiceListFragment : LazyFragment() {
 
     override fun initViews() {
 
+        StatusBarUtil.setTranslucent(activity)
 
         val layoutManager = LinearLayoutManager(context)
         voiceListView.layoutManager = layoutManager
@@ -49,6 +51,7 @@ class VoiceListFragment : LazyFragment() {
                 menuBridge.closeMenu()
                 val item = mAdapter.getItem(position)
                 VoiceHelper.instance.deleteData(item)
+                FileUtils.delete(item.voicePath)
                 FileUtils.delete(item.voicePath)
                 mAdapter.notifyDataSetChanged()
             }
@@ -61,7 +64,7 @@ class VoiceListFragment : LazyFragment() {
                     val fragment = PlayVoiceFragment.instance(voice)
                     fragment.show(childFragmentManager, PlayVoiceFragment.TAG)
                 } else {
-                    ToastUtils.showToast(context!!, "录音中不能播放...")
+                    ToastUtils.showShort("录音中不能播放...")
                 }
             }
         })
@@ -80,7 +83,7 @@ class VoiceListFragment : LazyFragment() {
                     startRecordVoice(isStartRecord)
                     isStartRecord = !isStartRecord
                 } else {
-                    ToastUtils.showToast(context!!, "请授予录音权限")
+                    ToastUtils.showShort("请授予录音权限")
                 }
             }
         }
@@ -91,7 +94,9 @@ class VoiceListFragment : LazyFragment() {
         }
 
         toolBarMenu.setOnClickListener {
-            setActionLayout()
+            if (mAdapter.itemCount > 0)
+                setActionLayout()
+            else ToastUtils.showShort("无数据")
         }
 
         cancelAction.setOnClickListener {
@@ -101,7 +106,7 @@ class VoiceListFragment : LazyFragment() {
         conformAction.setOnClickListener {
             val selectList = mAdapter.getSelectList()
             if (selectList.size == 0) {
-                ToastUtils.showToast(context!!, "请选择")
+                ToastUtils.showShort("请选择")
                 return@setOnClickListener
             } else {
                 for (item in selectList) {
@@ -167,7 +172,7 @@ class VoiceListFragment : LazyFragment() {
     }
 
     override fun onNoPermission() {
-        ToastUtils.showToast(context!!, "获取权限失败")
+        ToastUtils.showShort("获取权限失败")
 
     }
 
